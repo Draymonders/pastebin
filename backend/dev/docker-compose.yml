@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+  pastebin-mongo:
+    image: 'mongo'
+    container_name: 'pastebin-mongo'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: 'pastebin'
+      MONGO_INITDB_ROOT_PASSWORD: 'pastebin'
+      MONGO_INITDB_DATABASE: 'pastebin'
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    ports:
+      - '27017-27019:27017-27019'
