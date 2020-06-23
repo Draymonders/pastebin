@@ -79,9 +79,9 @@ class Home extends React.Component {
             <Form.Item name={['paste', 'expireTime']} label="Expiration" >
               <Select defaultValue="0" style={{ width: 120 }} >
                 <Option value="0">None</Option>
-                <Option value="86400" >A Day</Option>
-                <Option value="604800" >A Week</Option>
-                <Option value="2419200" >A Month</Option>
+                <Option value="86400000" >A Day</Option>
+                <Option value="604800000" >A Week</Option>
+                <Option value="2419200000" >A Month</Option>
               </Select>
             </Form.Item>
 

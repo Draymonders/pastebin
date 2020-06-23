@@ -9,7 +9,7 @@ import {
 import { apiGetPaste} from '../api/index';
 
 const { Content} = Layout;
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 class Topic extends React.Component {
   constructor(props) {
