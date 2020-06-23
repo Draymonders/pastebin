@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import Home from './views/Home';
 import Topics from './views/Topics';
+import Summary from './views/Summary';
 
 export default function App() {
   return (
@@ -13,6 +14,9 @@ export default function App() {
       <Switch>
         <Route path="/p/:topicId" >
           <Topics />
+        </Route>
+        <Route path="/summary">
+          <Summary />
         </Route>
         <Route path="/">
           <Home />
