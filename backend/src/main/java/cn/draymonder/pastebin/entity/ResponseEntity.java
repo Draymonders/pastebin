@@ -9,7 +9,6 @@ import lombok.Data;
  * @auther Draymonder
  */
 @Data
-@Builder
 public class ResponseEntity<T> {
 
   public static final int SUCCESS_CODE = 0;
@@ -20,7 +19,9 @@ public class ResponseEntity<T> {
   String message;
 
   T data;
-  public ResponseEntity() {}
+
+  public ResponseEntity() {
+  }
 
   public ResponseEntity(int code, String message, T data) {
     this.code = code;
@@ -28,30 +29,27 @@ public class ResponseEntity<T> {
     this.data = data;
   }
 
-  public ResponseEntity<T> ok() {
-    this.code = SUCCESS_CODE;
-    return this;
+  public static <T> ResponseEntity<T> ok() {
+    return new ResponseEntity<T>(SUCCESS_CODE, "", null);
   }
 
-  public ResponseEntity<T> error() {
-    this.code = ERROR_CODE;
-    return this;
+  public static <T> ResponseEntity<T> ok(T data) {
+    return new ResponseEntity<T>(SUCCESS_CODE, "", data);
   }
 
-//  public ResponseEntity<T> ok(String message, T data) {
-//    return new ResponseEntity<>(SUCCESS_CODE, message, data);
-//  }
-//
-//  public ResponseEntity<T> ok(T data) {
-//    return new ResponseEntity<T>(SUCCESS_CODE, "", data);
-//  }
-//
-//
-//  public ResponseEntity<T> error(T data) {
-//    return new ResponseEntity<T>(ERROR_CODE, "", data);
-//  }
-//
-//  public ResponseEntity<T> error(String message, T data) {
-//    return new ResponseEntity<>(ERROR_CODE, message, data);
-//  }
+  public static <T> ResponseEntity<T> ok(String message, T data) {
+    return new ResponseEntity<>(SUCCESS_CODE, message, data);
+  }
+
+  public static <T> ResponseEntity<T> error() {
+    return new ResponseEntity<T>(ERROR_CODE, "", null);
+  }
+
+  public static <T> ResponseEntity<T> error(T data) {
+    return new ResponseEntity<T>(ERROR_CODE, "", data);
+  }
+
+  public static <T> ResponseEntity<T> error(String message, T data) {
+    return new ResponseEntity<>(ERROR_CODE, message, data);
+  }
 }

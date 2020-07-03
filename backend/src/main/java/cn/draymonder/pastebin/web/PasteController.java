@@ -47,7 +47,7 @@ public class PasteController {
   }
 
   @PostMapping("/")
-  public ResponseEntity createPaste(
+  public ResponseEntity<Map<String, String>> createPaste(
       @RequestParam("poster") String poster,
       @RequestParam(value = "language", required = false) String language,
       @RequestParam(value = "expireTime", required = false) String expireTime,
@@ -69,9 +69,7 @@ public class PasteController {
         .build();
     mongoTemplate.save(pasteEntity);
     log.info("生成新的shortUrl: {}", shortUrl);
-    return ResponseEntity.builder().code(ResponseEntity.SUCCESS_CODE).message("生成成功")
-        .data(Map.of("shortUrl", shortUrl))
-        .build();
+    return ResponseEntity.ok("生成成功", Map.of("shortUrl", shortUrl));
   }
 
   @GetMapping("/p/{shortUrl}")
@@ -80,10 +78,9 @@ public class PasteController {
         .findOne(Query.query(where("shortUrl").is(shortUrl)), PasteEntity.class);
     if (Objects.nonNull(pasteEntity)) {
       log.info("访问shortUrl: {}", shortUrl);
-      return new ResponseEntity<>(ResponseEntity.SUCCESS_CODE, "获取成功",
-          PasteVO.converPastetVO(pasteEntity));
+      return ResponseEntity.ok("获取成功", PasteVO.converPastetVO(pasteEntity));
     } else {
-      return new ResponseEntity<>(ResponseEntity.ERROR_CODE, "获取失败", null);
+      return ResponseEntity.error("获取失败", null);
     }
   }
 }

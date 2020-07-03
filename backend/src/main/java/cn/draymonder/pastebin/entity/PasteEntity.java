@@ -5,7 +5,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 
 /**
- * @Description: 实体
+ * @Description: 粘贴实体
  * @Date 2020/06/18 10:58
  * @auther Draymonder
  */

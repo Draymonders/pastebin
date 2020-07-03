@@ -48,10 +48,10 @@ public class CronJobs {
 
     // 找到需要删除的数据
     List<PasteEntity> needRemoveEntity = new ArrayList<>();
+    long currentTime = System.currentTimeMillis();
     allCronPasteEntity.forEach(cronPasteEntity -> {
       long createTime = cronPasteEntity.getCreateTime();
       long expireTime = cronPasteEntity.getExpireTimeSecond();
-      long currentTime = System.currentTimeMillis();
       if (createTime + expireTime <= currentTime)
         needRemoveEntity.add(cronPasteEntity);
     });
@@ -72,11 +72,13 @@ public class CronJobs {
   @Scheduled(fixedRate = ONE_HOUR)
   public void cronLanguageSummary() {
     mongoTemplate.dropCollection(SummaryVO.class);
-
+    // 获取分组
     List<PasteEntity> allEntity = mongoTemplate.findAll(PasteEntity.class);
     List<SummaryVO> summaryVOList = new ArrayList<>();
     Map<String, List<PasteEntity>> languageMap = allEntity.stream()
         .collect(groupingBy(PasteEntity::getLanguage));
+
+    // 进行统计
     int sum = allEntity.size();
     languageMap.forEach((language, entities) -> {
       int count = entities.size();

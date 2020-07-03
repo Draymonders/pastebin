@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @Description:
+ * @Description: 返回前端实体 view object
  * @Date 2020/06/18 15:01
  * @auther Draymonder
  */
